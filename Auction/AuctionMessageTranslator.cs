@@ -6,6 +6,7 @@ public class AuctionMessageTranslator(IAuctionEventListener listener)
     {
         if (message.Contains("CLOSE"))
         {
+            listener.Notify("Close");
             // bug: should notify listener
         }
         else if (message.Contains("PRICE"))
@@ -16,10 +17,12 @@ public class AuctionMessageTranslator(IAuctionEventListener listener)
             var increment = int.Parse(data["Increment"]);
             var bidder = data["Bidder"];
 
+            listener.Notify($"Price:{currentPrice}, bidder:{bidder}, increment:{increment}");
             // bug: should notify listener
         }
         else
         {
+            listener.Notify("Unknown");
             // bug: should notify listener
         }
     }
